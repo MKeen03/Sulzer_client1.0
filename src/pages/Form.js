@@ -1,37 +1,46 @@
 import { useState, useEffect } from "react";
+
+import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Header from "../components/Header";
+import "./form.css";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { Button, Stack } from "@mui/material";
+import Box from "@mui/material/Box";
+import Modal from "../components/Modal";
 
 const Form = () => {
   const [user, setUser] = useState(null);
   const [files, setFiles] = useState([]);
-  const [value1, setValue1] = useState("");
-  const [value2, setValue2] = useState("");
-  const [value3, setValue3] = useState("");
-  const [dropdown1, setDropdown1] = useState("");
-  const [dropdown2, setDropdown2] = useState("");
-  const [messages, setMessages] = useState([{ msg: "Here is a test" }]);
+  const [stars, setStars] = useState("");
+  const [projectName, setProjectName] = useState("");
+  const [typeOfBid, setTypeOfBid] = useState("");
+  const [quotationSelection, setQuotationSelection] = useState("");
+  const [messages, setMessages] = useState([{}]);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleSubmit = async () => {
     if (
-      files.length < 1 &&
-      value1.length < 1 &&
-      value2.length < 1 &&
-      value3.length < 1 &&
-      dropdown1.length < 1 &&
-      dropdown2.length < 1
+      stars === "" ||
+      projectName === "" ||
+      typeOfBid === "" ||
+      quotationSelection === ""
     ) {
       setMessages([...messages, { msg: "Form cannot be blank." }]);
+      setOpenModal(false);
       setTimeout(() => {
         setMessages([]);
       }, 1500);
     } else {
       let formData = new FormData();
-      formData.append("value1", value1);
-      formData.append("value2", value2);
-      formData.append("value3", value3);
-      formData.append("dropdown1", dropdown1);
-      formData.append("dropdown2", dropdown2);
+      formData.append("stars", stars);
+      formData.append("projectName", projectName);
+      formData.append("typeOfBid", typeOfBid);
+      formData.append("quotationSelection", quotationSelection);
       formData.append("id", user.user.id);
       formData.append("email", user.user.email);
       formData.append("firstName", user.user.firstName);
@@ -72,97 +81,218 @@ const Form = () => {
       setUser(info);
     }
   }, []); // eslint-disable-line
+
+  const handleChange = (event) => {
+    setTypeOfBid(event.target.value);
+  };
+
+  const handleChanges = (event) => {
+    setQuotationSelection(event.target.value);
+  };
   return (
-    <div className="Form">
-      <h1>This is the form page</h1>
+    <Box
+      class="formbg"
+      style={{
+        backgroundColor: "#a5a5a5",
+        backgroundSize: "cover",
+        height: "100vh",
+      }}
+    >
+      <Header user={user} />
 
-      <label htmlFor="value1">value1:</label>
-      <input
-        onChange={(e) => {
-          setValue1(e.target.value);
-        }}
-        type="text"
-        id="value1"
-        name="value1"
-        placeholder="value1"
-      ></input>
+      <div>
+        <div className="formSectionOne">
+          <Stack spacing={3}>
+            <div className="stars">
+              <TextField
+                style={{
+                  minWidth: "425px",
+                }}
+                onChange={(e) => {
+                  setStars(e.target.value);
+                }}
+                type="text"
+                id="stars"
+                name="stars"
+                placeholder="Stars #"
+                htmlFor="starsNumber"
+                variant="standard"
+              />
+            </div>
+            <div>
+              <TextField
+                style={{
+                  minWidth: "425px",
+                }}
+                onChange={(e) => {
+                  setProjectName(e.target.value);
+                }}
+                type="text"
+                id="projectName"
+                name="projectName"
+                placeholder="Project Name"
+                htmlFor="projectName"
+                variant="standard"
+              />
+            </div>
+          </Stack>
+          <br></br>
+          <br></br>
 
-      <label htmlFor="value2">value2:</label>
-      <input
-        onChange={(e) => {
-          setValue2(e.target.value);
-        }}
-        type="text"
-        id="value2"
-        name="value2"
-        placeholder="value2"
-      ></input>
+          {/* here is where to start the dropdown divs for two columns CREATE NEW DIV HERE */}
+          <div className="row">
+            <div className="column">
+              <div className="selections">
+                <FormControl
+                  style={{
+                    minWidth: "425px",
+                  }}
+                  variant="filled"
+                  sx={{ m: 1, minWidth: 200 }}
+                >
+                  <InputLabel id="typeOfBid">Type</InputLabel>
+                  <Select
+                    labelId="typeOfBid"
+                    id="typeOfBid"
+                    onChange={handleChange}
+                    label="Bid"
+                    value={typeOfBid}
+                  >
+                    <MenuItem value={"Budget"}>Budget</MenuItem>
+                    <MenuItem value={"Firm Bid"}>Firm Bid</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
 
-      <label htmlFor="value3">value3:</label>
-      <input
-        onChange={(e) => {
-          setValue3(e.target.value);
-        }}
-        type="text"
-        id="value3"
-        name="value3"
-        placeholder="value3"
-      ></input>
+              <div className="selections">
+                <FormControl
+                  style={{
+                    minWidth: "425px",
+                  }}
+                  variant="filled"
+                  sx={{ m: 1, minWidth: 200 }}
+                >
+                  <InputLabel id="quotationSelection">
+                    Quote Selection
+                  </InputLabel>
+                  <Select
+                    id="quotationSelection"
+                    onChange={handleChanges}
+                    label="quotationSelection"
+                    value={quotationSelection}
+                  >
+                    <MenuItem value={"Pump Selections Only"}>
+                      Pump Selections Only
+                    </MenuItem>
+                    <MenuItem value={"Pump Quotation"}>Pump Quotation</MenuItem>
+                    <MenuItem value={"Pump Quotation Including Motors"}>
+                      {" "}
+                      Pump Quotation Including Motors
+                    </MenuItem>
+                    <MenuItem value={"Motor Quotation Only"}>
+                      Motor Quotation Only
+                    </MenuItem>
+                    <MenuItem
+                      value={"Review STARS file and advise price on RFQ's"}
+                    >
+                      Review STARS file and advise price on RFQ's
+                    </MenuItem>
+                    <MenuItem
+                      value={"Other(Be descriptive in the comments below)"}
+                    >
+                      Other(Be descriptive in the comments below)
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
 
-      <label htmlFor="dropdown1">dropdown1:</label>
-      <select
-        onChange={(e) => {
-          setDropdown1(e.target.value);
-        }}
-        name="dropdown1"
-        id="dropdown1"
-      >
-        <option>Select...</option>
-        <option>The quick brown fox</option>
-        <option>Jumped over the lazy cat</option>
-        <option>This is some more text</option>
-        <option>Just to fill the empty space</option>
-      </select>
+              <div className="textbox">
+                <TextField
+                  style={{ marginTop: 20, width: 600 }}
+                  id="standard-multiline-static"
+                  label="Other Comments"
+                  multiline
+                  rows={8}
+                  variant="standard"
+                />
+              </div>
+              <div>
+                <Stack spacing={3}>
+                  <div className="buttoncolumn">
+                    <input
+                      type="file"
+                      onChange={(e) => {
+                        setFiles(e.target.files);
+                      }}
+                      id="upload"
+                      name="file"
+                      accept="application/pdf"
+                      multiple
+                    />
+                  </div>
 
-      <label htmlFor="dropdown2">dropdown1:</label>
-      <select
-        onChange={(e) => {
-          setDropdown2(e.target.value);
-        }}
-        name="dropdown2"
-        id="dropdown2"
-      >
-        <option>Select...</option>
-        <option>Jumped over the lazy cat</option>
-        <option>This is some more text</option>
-        <option>Just to fill the empty space</option>
-      </select>
+                  <div>
+                    <Button
+                      variant="contained"
+                      className="openModalBtn"
+                      onClick={() => {
+                        if (
+                          stars === "" ||
+                          projectName === "" ||
+                          typeOfBid === "" ||
+                          quotationSelection === ""
+                        ) {
+                          setMessages([
+                            ...messages,
+                            {
+                              msg: "Required Fields are Stars #, Project Name, Type of Bid, and Quotation Selection.",
+                            },
+                          ]);
+                          setOpenModal(false);
+                          setTimeout(() => {
+                            setMessages([]);
+                          }, 2500);
+                        } else setOpenModal(true);
+                      }}
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                </Stack>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <br />
-
-      <label htmlFor="file">Upload PDF:</label>
-      <input
-        onChange={(e) => {
-          setFiles(e.target.files);
-        }}
-        type="file"
-        id="file"
-        name="file"
-        accept="application/pdf"
-        multiple
-      />
-      <br />
-      <button onClick={handleSubmit} type="submit">
-        Submit
-      </button>
       <br />
       <br />
       <div>
         {messages.map((message) => {
-          return <p key={message.msg}>{message.msg}</p>;
+          return (
+            <p className="errorDiv" key={message.msg}>
+              {message.msg}
+            </p>
+          );
         })}
       </div>
-    </div>
+      {
+        <div className="modalDisplay">
+          {openModal && (
+            <Modal
+              closeModal={setOpenModal}
+              handleSubmit={handleSubmit}
+              stars={stars}
+              projectName={projectName}
+              typeOfBid={typeOfBid}
+              quotationSelection={quotationSelection}
+              files={files}
+              modalState={openModal}
+            />
+          )}
+        </div>
+      }
+    </Box>
   );
 };
 

@@ -1,0 +1,49 @@
+.formSectionOne {
+  z-index: 1;
+  background-color: rgb(233, 247, 255);
+  width: 800px;
+  height: 750px;
+  box-shadow: 6px 0px 6px #294385;
+  border-radius: 8px;
+  display: inline-block;
+  color: #00012d;
+  padding-top: 15px;
+}
+
+.textbox {
+  height: 300px;
+}
+
+.selections {
+  margin-top: 10px;
+}
+
+.formbg {
+  margin-top: -21px;
+}
+
+.file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.modalDisplay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.errorDiv {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #cc0000;
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 30px 20px;
+  color: white;
+}

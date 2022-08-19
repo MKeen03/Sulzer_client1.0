@@ -1,11 +1,12 @@
 import "./App.css";
 import { Outlet } from "react-router-dom";
-import Header from "./components/Header";
+
+import { useState, useEffect } from "react";
 
 const App = () => {
+  const [user, setUser] = useState(localStorage.getItem("info"));
   return (
     <div className="App">
-      <Header />
       <Outlet />
     </div>
   );
