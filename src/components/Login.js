@@ -17,10 +17,13 @@ const Login = () => {
   const login = async () => {
     if (email.length > 0 && password.length > 0) {
       await axios
-        .post("http://127.0.0.1:5000/api/user/login", {
-          email,
-          password,
-        })
+        .post(
+          "http://ec2-54-147-139-97.compute-1.amazonaws.com:5000/api/user/login",
+          {
+            email,
+            password,
+          }
+        )
         .then((response) => {
           setMessages([...messages, { msg: "Success! Redirecting..." }]);
           let info = {
