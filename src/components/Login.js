@@ -17,13 +17,10 @@ const Login = () => {
   const login = async () => {
     if (email.length > 0 && password.length > 0) {
       await axios
-        .post(
-          "http://ec2-54-147-139-97.compute-1.amazonaws.com:5000/api/user/login",
-          {
-            email,
-            password,
-          }
-        )
+        .post("https://ec2-54-147-139-97.compute-1.amazonaws.com:5000/api/user/login", {
+          email,
+          password,
+        })
         .then((response) => {
           setMessages([...messages, { msg: "Success! Redirecting..." }]);
           let info = {
@@ -44,10 +41,7 @@ const Login = () => {
           }, 3000);
         });
     } else {
-      setMessages([
-        ...messages,
-        { msg: "Username and password cannot be blank" },
-      ]);
+      setMessages([...messages, { msg: "Username and password cannot be blank" }]);
       setTimeout(() => {
         setMessages([]);
       }, 3000);

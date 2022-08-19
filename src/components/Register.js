@@ -47,15 +47,12 @@ const Register = () => {
       }, 3000);
     } else {
       await axios
-        .post(
-          "http://ec2-54-147-139-97.compute-1.amazonaws.com:5000/api/user/register",
-          {
-            email,
-            firstName,
-            company,
-            password,
-          }
-        )
+        .post("https://ec2-54-147-139-97.compute-1.amazonaws.com:5000/api/user/register", {
+          email,
+          firstName,
+          company,
+          password,
+        })
         .then((response) => {
           setMessages([...messages, { msg: "Success! Redirecting..." }]);
           let info = {
