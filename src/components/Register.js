@@ -4,7 +4,6 @@ import axios from "axios";
 import "./register.css";
 import { Stack, TextField, Button } from "@mui/material";
 import logo from "../assets/logo.png";
-import { createTheme } from "@mui/material/styles";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -73,14 +72,6 @@ const Register = () => {
         });
     }
   };
-
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#004e83",
-      },
-    },
-  });
 
   return (
     <div className="container">
@@ -174,7 +165,7 @@ const Register = () => {
         </Stack>
 
         <span>
-          {messages.map((message) => {
+          {messages?.map((message) => {
             return (
               <p class="notification" key={message.msg}>
                 {message.msg}

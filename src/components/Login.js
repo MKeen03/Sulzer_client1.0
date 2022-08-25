@@ -4,7 +4,6 @@ import axios from "axios";
 import "./register.css";
 import { Stack, TextField, Button } from "@mui/material";
 import logo from "../assets/logo.png";
-import { createTheme } from "@mui/material/styles";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -40,19 +39,15 @@ const Login = () => {
           }, 3000);
         });
     } else {
-      setMessages([...messages, { msg: "Username and password cannot be blank" }]);
+      setMessages([
+        ...messages,
+        { msg: "Username and password cannot be blank" },
+      ]);
       setTimeout(() => {
         setMessages([]);
       }, 3000);
     }
   };
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#004e83",
-      },
-    },
-  });
 
   return (
     <div className="container">
@@ -101,15 +96,15 @@ const Login = () => {
             </Button>
           </div>
         </Stack>
-      </div>
-      <div>
-        {messages.map((message) => {
-          return (
-            <p className="notification" key={message.msg}>
-              {message.msg}
-            </p>
-          );
-        })}
+        <span>
+          {messages?.map((message) => {
+            return (
+              <p className="notification" key={message.msg}>
+                {message.msg}
+              </p>
+            );
+          })}
+        </span>
       </div>
     </div>
   );

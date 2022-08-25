@@ -20,11 +20,16 @@ const Form = () => {
   const [projectName, setProjectName] = useState("");
   const [typeOfBid, setTypeOfBid] = useState("");
   const [quotationSelection, setQuotationSelection] = useState("");
-  const [messages, setMessages] = useState([{}]);
+  const [messages, setMessages] = useState([]);
   const [openModal, setOpenModal] = useState(false);
 
   const handleSubmit = async () => {
-    if (stars === "" || projectName === "" || typeOfBid === "" || quotationSelection === "") {
+    if (
+      stars === "" ||
+      projectName === "" ||
+      typeOfBid === "" ||
+      quotationSelection === ""
+    ) {
       setMessages([...messages, { msg: "Form cannot be blank." }]);
       setOpenModal(false);
       setTimeout(() => {
@@ -146,7 +151,13 @@ const Form = () => {
                   sx={{ m: 1, minWidth: 200 }}
                 >
                   <InputLabel id="typeOfBid">Type</InputLabel>
-                  <Select labelId="typeOfBid" id="typeOfBid" onChange={handleChange} label="Bid" value={typeOfBid}>
+                  <Select
+                    labelId="typeOfBid"
+                    id="typeOfBid"
+                    onChange={handleChange}
+                    label="Bid"
+                    value={typeOfBid}
+                  >
                     <MenuItem value={"Budget"}>Budget</MenuItem>
                     <MenuItem value={"Firm Bid"}>Firm Bid</MenuItem>
                   </Select>
@@ -161,14 +172,36 @@ const Form = () => {
                   variant="filled"
                   sx={{ m: 1, minWidth: 200 }}
                 >
-                  <InputLabel id="quotationSelection">Quote Selection</InputLabel>
-                  <Select id="quotationSelection" onChange={handleChanges} label="quotationSelection" value={quotationSelection}>
-                    <MenuItem value={"Pump Selections Only"}>Pump Selections Only</MenuItem>
+                  <InputLabel id="quotationSelection">
+                    Quote Selection
+                  </InputLabel>
+                  <Select
+                    id="quotationSelection"
+                    onChange={handleChanges}
+                    label="quotationSelection"
+                    value={quotationSelection}
+                  >
+                    <MenuItem value={"Pump Selections Only"}>
+                      Pump Selections Only
+                    </MenuItem>
                     <MenuItem value={"Pump Quotation"}>Pump Quotation</MenuItem>
-                    <MenuItem value={"Pump Quotation Including Motors"}> Pump Quotation Including Motors</MenuItem>
-                    <MenuItem value={"Motor Quotation Only"}>Motor Quotation Only</MenuItem>
-                    <MenuItem value={"Review STARS file and advise price on RFQ's"}>Review STARS file and advise price on RFQ's</MenuItem>
-                    <MenuItem value={"Other(Be descriptive in the comments below)"}>Other(Be descriptive in the comments below)</MenuItem>
+                    <MenuItem value={"Pump Quotation Including Motors"}>
+                      {" "}
+                      Pump Quotation Including Motors
+                    </MenuItem>
+                    <MenuItem value={"Motor Quotation Only"}>
+                      Motor Quotation Only
+                    </MenuItem>
+                    <MenuItem
+                      value={"Review STARS file and advise price on RFQ's"}
+                    >
+                      Review STARS file and advise price on RFQ's
+                    </MenuItem>
+                    <MenuItem
+                      value={"Other(Be descriptive in the comments below)"}
+                    >
+                      Other(Be descriptive in the comments below)
+                    </MenuItem>
                   </Select>
                 </FormControl>
               </div>
@@ -203,7 +236,12 @@ const Form = () => {
                       variant="contained"
                       className="openModalBtn"
                       onClick={() => {
-                        if (stars === "" || projectName === "" || typeOfBid === "" || quotationSelection === "") {
+                        if (
+                          stars === "" ||
+                          projectName === "" ||
+                          typeOfBid === "" ||
+                          quotationSelection === ""
+                        ) {
                           setMessages([
                             ...messages,
                             {
@@ -230,7 +268,7 @@ const Form = () => {
       <br />
       <br />
       <div>
-        {messages.map((message) => {
+        {messages?.map((message) => {
           return (
             <p className="errorDiv" key={message.msg}>
               {message.msg}
