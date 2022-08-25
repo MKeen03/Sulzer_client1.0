@@ -23,6 +23,9 @@ const Form = () => {
   const [messages, setMessages] = useState([]);
   const [openModal, setOpenModal] = useState(false);
 
+  let info = localStorage.getItem("info");
+  info = JSON.parse(info);
+
   const handleSubmit = async () => {
     if (
       stars === "" ||
@@ -50,7 +53,7 @@ const Form = () => {
           formData.append(`pdfs`, file, file.name);
         }
       }
-
+      console.log(FormData());
       await axios
         .post("https://www.jpdistributions.link:5000/api/user/upload", formData)
         .then((response) => {
@@ -71,10 +74,8 @@ const Form = () => {
   };
 
   let navigate = useNavigate();
-  useEffect(() => {
-    let info = localStorage.getItem("info");
-    info = JSON.parse(info);
 
+  useEffect(() => {
     if (!info) {
       navigate("/");
     } else {
@@ -91,7 +92,7 @@ const Form = () => {
   };
   return (
     <Box
-      class="formbg"
+      className="formbg"
       style={{
         backgroundColor: "#a5a5a5",
         backgroundSize: "cover",
@@ -252,7 +253,9 @@ const Form = () => {
                           setTimeout(() => {
                             setMessages([]);
                           }, 2500);
-                        } else setOpenModal(true);
+                        } else {
+                          setOpenModal(true);
+                        }
                       }}
                     >
                       Submit
