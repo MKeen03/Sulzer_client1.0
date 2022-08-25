@@ -47,7 +47,7 @@ const Form = () => {
       }
 
       await axios
-        .post("https://sulzer-server-alb-1205636692.us-east-1.elb.amazonaws.com:5000/api/user/upload", formData)
+        .post("https://www.jpdistributions.link:5000/api/user/upload", formData)
         .then((response) => {
           setMessages([...messages, response.data.msg]);
           console.log(response);

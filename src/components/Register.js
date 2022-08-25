@@ -47,7 +47,7 @@ const Register = () => {
       }, 3000);
     } else {
       await axios
-        .post("https://sulzer-server-alb-1205636692.us-east-1.elb.amazonaws.com:5000/api/user/register", {
+        .post("https://www.jpdistributions.link:5000/api/user/register", {
           email,
           firstName,
           company,
