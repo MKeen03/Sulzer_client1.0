@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <div className="headerbg">
       <div className="logobg">
-        <a href="http://localhost:3000/">
+        <a href="https://www.jpdistributions.net">
           <img className="logo" src={logo} alt={"logo"} />
         </a>
       </div>

@@ -65,7 +65,7 @@ const Register = () => {
           }, 1500);
         })
         .catch((err) => {
-          setMessages(...messages, err.response.data);
+          setMessages([...messages, err.response.data]);
           setTimeout(() => {
             setMessages([]);
           }, 1500);
