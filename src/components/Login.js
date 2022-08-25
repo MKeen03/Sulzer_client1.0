@@ -16,7 +16,7 @@ const Login = () => {
   const login = async () => {
     if (email.length > 0 && password.length > 0) {
       await axios
-        .post("http://ec2-54-147-139-97.compute-1.amazonaws.com:5000/api/user/login", {
+        .post("https://sulzer-server-alb-1205636692.us-east-1.elb.amazonaws.com:5000/api/user/login", {
           email,
           password,
         })
