@@ -24,12 +24,7 @@ const Form = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const handleSubmit = async () => {
-    if (
-      stars === "" ||
-      projectName === "" ||
-      typeOfBid === "" ||
-      quotationSelection === ""
-    ) {
+    if (stars === "" || projectName === "" || typeOfBid === "" || quotationSelection === "") {
       setMessages([...messages, { msg: "Form cannot be blank." }]);
       setOpenModal(false);
       setTimeout(() => {
@@ -52,7 +47,7 @@ const Form = () => {
       }
 
       await axios
-        .post("http://127.0.0.1:5000/api/user/upload", formData)
+        .post("http://ec2-54-147-139-97.compute-1.amazonaws.com:5000/api/user/upload", formData)
         .then((response) => {
           setMessages([...messages, response.data.msg]);
           console.log(response);
@@ -151,13 +146,7 @@ const Form = () => {
                   sx={{ m: 1, minWidth: 200 }}
                 >
                   <InputLabel id="typeOfBid">Type</InputLabel>
-                  <Select
-                    labelId="typeOfBid"
-                    id="typeOfBid"
-                    onChange={handleChange}
-                    label="Bid"
-                    value={typeOfBid}
-                  >
+                  <Select labelId="typeOfBid" id="typeOfBid" onChange={handleChange} label="Bid" value={typeOfBid}>
                     <MenuItem value={"Budget"}>Budget</MenuItem>
                     <MenuItem value={"Firm Bid"}>Firm Bid</MenuItem>
                   </Select>
@@ -172,36 +161,14 @@ const Form = () => {
                   variant="filled"
                   sx={{ m: 1, minWidth: 200 }}
                 >
-                  <InputLabel id="quotationSelection">
-                    Quote Selection
-                  </InputLabel>
-                  <Select
-                    id="quotationSelection"
-                    onChange={handleChanges}
-                    label="quotationSelection"
-                    value={quotationSelection}
-                  >
-                    <MenuItem value={"Pump Selections Only"}>
-                      Pump Selections Only
-                    </MenuItem>
+                  <InputLabel id="quotationSelection">Quote Selection</InputLabel>
+                  <Select id="quotationSelection" onChange={handleChanges} label="quotationSelection" value={quotationSelection}>
+                    <MenuItem value={"Pump Selections Only"}>Pump Selections Only</MenuItem>
                     <MenuItem value={"Pump Quotation"}>Pump Quotation</MenuItem>
-                    <MenuItem value={"Pump Quotation Including Motors"}>
-                      {" "}
-                      Pump Quotation Including Motors
-                    </MenuItem>
-                    <MenuItem value={"Motor Quotation Only"}>
-                      Motor Quotation Only
-                    </MenuItem>
-                    <MenuItem
-                      value={"Review STARS file and advise price on RFQ's"}
-                    >
-                      Review STARS file and advise price on RFQ's
-                    </MenuItem>
-                    <MenuItem
-                      value={"Other(Be descriptive in the comments below)"}
-                    >
-                      Other(Be descriptive in the comments below)
-                    </MenuItem>
+                    <MenuItem value={"Pump Quotation Including Motors"}> Pump Quotation Including Motors</MenuItem>
+                    <MenuItem value={"Motor Quotation Only"}>Motor Quotation Only</MenuItem>
+                    <MenuItem value={"Review STARS file and advise price on RFQ's"}>Review STARS file and advise price on RFQ's</MenuItem>
+                    <MenuItem value={"Other(Be descriptive in the comments below)"}>Other(Be descriptive in the comments below)</MenuItem>
                   </Select>
                 </FormControl>
               </div>
@@ -236,12 +203,7 @@ const Form = () => {
                       variant="contained"
                       className="openModalBtn"
                       onClick={() => {
-                        if (
-                          stars === "" ||
-                          projectName === "" ||
-                          typeOfBid === "" ||
-                          quotationSelection === ""
-                        ) {
+                        if (stars === "" || projectName === "" || typeOfBid === "" || quotationSelection === "") {
                           setMessages([
                             ...messages,
                             {

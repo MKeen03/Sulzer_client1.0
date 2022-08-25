@@ -4,7 +4,6 @@ import axios from "axios";
 import "./register.css";
 import { Stack, TextField, Button } from "@mui/material";
 import logo from "../assets/logo.png";
-import { style } from "@mui/system";
 import { createTheme } from "@mui/material/styles";
 
 const Login = () => {
@@ -17,7 +16,7 @@ const Login = () => {
   const login = async () => {
     if (email.length > 0 && password.length > 0) {
       await axios
-        .post("https://ec2-54-147-139-97.compute-1.amazonaws.com:5000/api/user/login", {
+        .post("http://ec2-54-147-139-97.compute-1.amazonaws.com:5000/api/user/login", {
           email,
           password,
         })
