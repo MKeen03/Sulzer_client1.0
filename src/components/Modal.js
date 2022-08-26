@@ -1,7 +1,7 @@
 import React from "react";
 import "./modal.css";
 
-function Modal({ closeModal, handleSubmit, stars, projectName, typeOfBid, quotationSelection, files, modalState }) {
+function Modal({ closeModal, handleSubmit, stars, projectName, typeOfBid, quotationSelection, files }) {
   const filesArr = Array.from(files);
   console.log(files);
 
@@ -45,7 +45,14 @@ function Modal({ closeModal, handleSubmit, stars, projectName, typeOfBid, quotat
         </div>
         <div className="footer">
           <button onClick={() => closeModal(false)}>Cancel</button>
-          <button id="submission" variant="contained" type="submit" onClick={handleSubmit}>
+          <button
+            id="submission"
+            variant="contained"
+            type="submit"
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
             Submit
           </button>
         </div>

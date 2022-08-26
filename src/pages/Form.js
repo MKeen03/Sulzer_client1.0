@@ -50,7 +50,7 @@ const Form = () => {
           formData.append(`pdfs`, file, file.name);
         }
       }
-
+      console.log(FormData());
       await axios
         .post("https://www.jpdistributions.link:5000/api/user/upload", formData, { headers: { token: info.token } })
         .then((response) => {
@@ -70,6 +70,7 @@ const Form = () => {
   };
 
   let navigate = useNavigate();
+
   useEffect(() => {
     if (!info) {
       navigate("/");
@@ -87,7 +88,7 @@ const Form = () => {
   };
   return (
     <Box
-      class="formbg"
+      className="formbg"
       style={{
         backgroundColor: "#a5a5a5",
         backgroundSize: "cover",
@@ -219,7 +220,9 @@ const Form = () => {
                           setTimeout(() => {
                             setMessages([]);
                           }, 2500);
-                        } else setOpenModal(true);
+                        } else {
+                          setOpenModal(true);
+                        }
                       }}
                     >
                       Submit
