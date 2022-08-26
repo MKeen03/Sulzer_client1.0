@@ -134,6 +134,7 @@ const Form = () => {
                 type="text"
                 id="projectName"
                 name="projectName"
+                value={projectName}
                 placeholder="Project Name"
                 htmlFor="projectName"
                 variant="standard"
