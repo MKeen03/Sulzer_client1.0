@@ -47,3 +47,15 @@
   padding: 30px 20px;
   color: white;
 }
+
+.successDiv {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #036811;
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 30px 20px;
+  color: white;
+}

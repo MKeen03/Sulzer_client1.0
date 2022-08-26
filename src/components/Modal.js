@@ -3,7 +3,6 @@ import "./modal.css";
 
 function Modal({ closeModal, handleSubmit, stars, projectName, typeOfBid, quotationSelection, files }) {
   const filesArr = Array.from(files);
-  console.log(files);
 
   return (
     <div className="modalBackground">

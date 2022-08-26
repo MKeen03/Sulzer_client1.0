@@ -23,6 +23,7 @@ const Form = () => {
   const [comments, setComments] = useState("");
   const [messages, setMessages] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   let info = localStorage.getItem("info");
   info = JSON.parse(info);
@@ -50,21 +51,26 @@ const Form = () => {
           formData.append(`pdfs`, file, file.name);
         }
       }
-      console.log(FormData());
       await axios
         .post("https://www.jpdistributions.link:5000/api/user/upload", formData, { headers: { token: info.token } })
         .then((response) => {
-          setMessages([...messages, response.data.msg]);
+          setIsError(false);
+          setOpenModal(false);
+          setFiles([]);
+          setStars("");
+          setProjectName("");
+          setMessages([response.data]);
           setTimeout(() => {
             setMessages([]);
-          }, 2000);
+          }, 2500);
         })
         .catch((error) => {
+          setIsError(true);
           setOpenModal(false);
           setMessages([...messages, error.response.data]);
           setTimeout(() => {
             setMessages([]);
-          }, 2000);
+          }, 2500);
         });
     }
   };
@@ -240,7 +246,7 @@ const Form = () => {
       <div>
         {messages?.map((message) => {
           return (
-            <p className="errorDiv" key={message.msg}>
+            <p className={isError ? "errorDiv" : "successDiv"} key={message.msg}>
               {message.msg}
             </p>
           );
