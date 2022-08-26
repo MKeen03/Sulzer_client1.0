@@ -1,7 +1,7 @@
 import React from "react";
 import "./modal.css";
 
-function Modal({ closeModal, handleSubmit, stars, projectName, typeOfBid, quotationSelection, files }) {
+function Modal({ closeModal, handleSubmit, stars, projectName, typeOfBid, quotationSelection, files, modalState }) {
   const filesArr = Array.from(files);
   console.log(files);
 
