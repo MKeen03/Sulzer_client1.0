@@ -79,7 +79,7 @@ const Form = () => {
 
   useEffect(() => {
     if (!info) {
-      navigate("/");
+      navigate("/auth");
     } else {
       setUser(info);
     }

@@ -6,6 +6,7 @@ import Auth from "./pages/Auth";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Form from "./pages/Form";
 import Thanks from "./pages/Thanks";
+import FrontPasswordPage from "./pages/FrontPasswordPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,7 +14,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="/" element={<Auth />} />
+          <Route path="/" element={<FrontPasswordPage />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/form" element={<Form />} />
           <Route path="/thanks" element={<Thanks />} />
           <Route
