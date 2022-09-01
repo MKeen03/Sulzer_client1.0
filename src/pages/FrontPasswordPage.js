@@ -10,20 +10,23 @@ const FrontPasswordPage = () => {
 
   const [password, setPassword] = useState("");
   const [messages, setMessages] = useState([]);
+  const [error, setError] = useState(false);
 
   const authorize = async (e) => {
     e.preventDefault();
     await axios
-      .post("https://www.jpdistributions.link:5000/api/user/access", password)
+      .post("https://www.jpdistributions.link:5000/api/user/access", { password: password })
       .then((response) => {
-        setMessages([...messages, response.msg]);
+        setMessages([...messages, response.data]);
         setTimeout(() => {
           navigate("/auth");
         }, 2000);
       })
       .catch((error) => {
-        setMessages([...messages, error.msg]);
+        setError(true);
+        setMessages([...messages, error.response.data]);
         setTimeout(() => {
+          setError(false);
           setMessages([]);
         }, 2000);
       });
@@ -62,8 +65,8 @@ const FrontPasswordPage = () => {
 
       {messages?.map((message) => {
         return (
-          <div key={message.msg} className="message">
-            <p>{message}</p>
+          <div key={message.msg} className={error ? "error-message" : "success-message"}>
+            <p>{message.msg}</p>
           </div>
         );
       })}
