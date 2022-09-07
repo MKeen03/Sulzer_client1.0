@@ -59,3 +59,12 @@
   padding: 30px 20px;
   color: white;
 }
+
+.ctrl {
+  width: 300px;
+  align-self: center;
+
+  border-radius: 4px;
+  align-items: center;
+  align-content: center;
+}
