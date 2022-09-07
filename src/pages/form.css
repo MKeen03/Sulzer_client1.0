@@ -62,8 +62,8 @@
 
 .ctrl {
   width: 300px;
+  background-color: whitesmoke;
   align-self: center;
-
   border-radius: 4px;
   align-items: center;
   align-content: center;
