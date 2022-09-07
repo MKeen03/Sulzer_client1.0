@@ -12,7 +12,6 @@ import Select from "@mui/material/Select";
 import { Button, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "../components/Modal";
-import NewReleasesIcon from "@mui/icons-material/NewReleases";
 
 const Form = () => {
   const [user, setUser] = useState(null);
@@ -21,8 +20,10 @@ const Form = () => {
   const [projectName, setProjectName] = useState("");
   const [typeOfBid, setTypeOfBid] = useState("");
   const [quotationSelection, setQuotationSelection] = useState("");
+  const [comments, setComments] = useState("");
   const [messages, setMessages] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   let info = localStorage.getItem("info");
   info = JSON.parse(info);
@@ -40,6 +41,7 @@ const Form = () => {
       formData.append("projectName", projectName);
       formData.append("typeOfBid", typeOfBid);
       formData.append("quotationSelection", quotationSelection);
+      formData.append("comments", comments);
       formData.append("id", user.user.id);
       formData.append("email", user.user.email);
       formData.append("firstName", user.user.firstName);
@@ -49,22 +51,26 @@ const Form = () => {
           formData.append(`pdfs`, file, file.name);
         }
       }
-      console.log();
       await axios
         .post("https://www.jpdistributions.link:5000/api/user/upload", formData, { headers: { token: info.token } })
         .then((response) => {
-          setMessages([...messages, response.data.msg]);
-          console.log(response);
+          setIsError(false);
+          setOpenModal(false);
+          setFiles([]);
+          setStars("");
+          setProjectName("");
+          setMessages([response.data]);
           setTimeout(() => {
             setMessages([]);
-          }, 2000);
+          }, 2500);
         })
         .catch((error) => {
-          console.log(error);
+          setIsError(true);
+          setOpenModal(false);
           setMessages([...messages, error.response.data]);
           setTimeout(() => {
             setMessages([]);
-          }, 2000);
+          }, 2500);
         });
     }
   };
@@ -73,7 +79,7 @@ const Form = () => {
 
   useEffect(() => {
     if (!info) {
-      navigate("/");
+      navigate("/auth");
     } else {
       setUser(info);
     }
@@ -111,6 +117,7 @@ const Form = () => {
                 type="text"
                 id="stars"
                 name="stars"
+                value={stars}
                 placeholder="Stars #"
                 htmlFor="starsNumber"
                 variant="standard"
@@ -127,6 +134,7 @@ const Form = () => {
                 type="text"
                 id="projectName"
                 name="projectName"
+                value={projectName}
                 placeholder="Project Name"
                 htmlFor="projectName"
                 variant="standard"
@@ -179,6 +187,9 @@ const Form = () => {
                 <TextField
                   style={{ marginTop: 20, width: 600 }}
                   id="standard-multiline-static"
+                  onChange={(e) => {
+                    setComments(e.target.value);
+                  }}
                   label="Other Comments"
                   multiline
                   rows={8}
@@ -200,11 +211,6 @@ const Form = () => {
                     />
                   </div>
 
-                  <div className="ctrl">
-                    {" "}
-                    <NewReleasesIcon />
-                    Hold CTRL to select multiple files
-                  </div>
                   <div>
                     <Button
                       variant="contained"
@@ -241,7 +247,7 @@ const Form = () => {
       <div>
         {messages?.map((message) => {
           return (
-            <p className="errorDiv" key={message.msg}>
+            <p className={isError ? "errorDiv" : "successDiv"} key={message.msg}>
               {message.msg}
             </p>
           );
