@@ -12,6 +12,7 @@ import Select from "@mui/material/Select";
 import { Button, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "../components/Modal";
+import NewReleasesIcon from "@mui/icons-material/NewReleases";
 
 const Form = () => {
   const [user, setUser] = useState(null);
@@ -209,6 +210,11 @@ const Form = () => {
                       accept="application/pdf"
                       multiple
                     />
+                  </div>
+
+                  <div className="ctrl">
+                    {" "}
+                    <NewReleasesIcon /> Hold CTRL to select multiple files{" "}
                   </div>
 
                   <div>
